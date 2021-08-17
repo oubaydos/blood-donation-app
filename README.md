@@ -1,0 +1,2 @@
+# blood-donation-app
+this is an app that will have two main functionalities : you can either ask for blood and/or sign up as a blood donor, if you ask for blood, the app will check the location and the blood type required and send a notification to those that match these requirements, the app will ask for a confirmation of each donor, and there will be an honour ranking for blood donor. I haven't started working on the app yet, it's just an idea now 
