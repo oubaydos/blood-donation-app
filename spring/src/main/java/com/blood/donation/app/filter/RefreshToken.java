@@ -1,4 +1,4 @@
-package com.blood.donation.app.service;
+package com.blood.donation.app.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.blood.donation.app.exception.MissingAuthorizationHeaderException;
 import com.blood.donation.app.exception.TokenException;
 import com.blood.donation.app.model.Donor;
+import com.blood.donation.app.service.DonorService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -35,7 +36,7 @@ public class RefreshToken {
             String refreshToken = authorizationHeader.substring(7);
             LOG.debug("received token: {}", refreshToken);
             JWTVerifier verifier = JWT.require(tokenHashingAlgorithm).build();
-            DecodedJWT decodedJWT = null;
+            DecodedJWT decodedJWT;
             try {
                 decodedJWT = verifier.verify(refreshToken);
             } catch (JWTVerificationException e) {

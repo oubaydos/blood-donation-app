@@ -1,18 +1,29 @@
-package com.blood.donation.app;
+package com.blood.donation.app.utils;
 
-import com.blood.donation.app.dto.UserError;
-import com.blood.donation.app.exception.UserEmailDuplicatedException;
-import org.springframework.http.HttpStatus;
-
-import java.time.Instant;
+import com.blood.donation.app.enums.BloodType;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
+    public static final String loginPath = "/login";
+    public static final String refreshTokenPath = "/refreshToken";
+    public static final Map<BloodType, Set<BloodType>>
+            compatibilityMap = Map.of(
+            BloodType.O_NEG, Set.of(BloodType.O_NEG),
+            BloodType.O_POS, Set.of(BloodType.O_POS, BloodType.O_NEG),
+            BloodType.A_NEG, Set.of(BloodType.O_NEG, BloodType.A_NEG),
+            BloodType.A_POS, Set.of(BloodType.O_NEG, BloodType.O_POS, BloodType.A_NEG, BloodType.A_POS),
+            BloodType.B_NEG, Set.of(BloodType.O_NEG, BloodType.B_NEG),
+            BloodType.B_POS, Set.of(BloodType.O_NEG, BloodType.O_POS, BloodType.B_NEG, BloodType.B_POS),
+            BloodType.AB_NEG, Set.of(BloodType.O_NEG, BloodType.A_NEG, BloodType.B_NEG, BloodType.AB_NEG),
+            BloodType.AB_POS, Set.of(BloodType.O_NEG, BloodType.O_POS, BloodType.A_NEG, BloodType.A_POS, BloodType.B_NEG, BloodType.B_POS, BloodType.AB_NEG, BloodType.AB_POS, BloodType.UNKNOWN),
+            BloodType.UNKNOWN, Set.of(BloodType.O_NEG)
+    );
+    public static long minimumTimeBetweenDonations= TimeUnit.DAYS.toDays(56);//56 days
+
+
     public static void main(String[] args) {
-        UserError err = new UserError(
-                HttpStatus.BAD_REQUEST,
-                Instant.now(),
-                new UserEmailDuplicatedException("oubayda@g")
-                );
-        System.err.println(err);
+        System.err.println(minimumTimeBetweenDonations);
     }
 }

@@ -2,7 +2,9 @@ package com.blood.donation.app.model;
 
 import com.blood.donation.app.enums.BloodType;
 import com.blood.donation.app.enums.City;
+import com.blood.donation.app.enums.Role;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
@@ -16,7 +18,7 @@ import java.util.Objects;
  *  BLOOD DEMANDER
  */
 @Entity
-public class User {
+public class Donor {
     @Id
     @NotNull(message = "Email must not be null")
     @javax.validation.constraints.Email
@@ -41,6 +43,9 @@ public class User {
     @NotNull(message = "city must not be null")
     private City city;
 
+    // could change if i decided to handle admin or other roles
+    private Role role = Role.USER;
+
     private BloodType bloodType = BloodType.UNKNOWN;
 
     @PositiveOrZero
@@ -51,10 +56,13 @@ public class User {
 
     private Instant lastTimeDonated;
 
-    public User() {
+    @Column(nullable=false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean canDonate = false;
+
+    public Donor() {
     }
 
-    public User(String email, String password, String firstName, String lastName, int age, City city, BloodType bloodType) {
+    public Donor(String email, String password, String firstName, String lastName, int age, City city, BloodType bloodType) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -115,6 +123,14 @@ public class User {
         this.city = City.fromValue(city);
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public BloodType getBloodType() {
         return bloodType;
     }
@@ -150,12 +166,20 @@ public class User {
         this.lastTimeDonated = lastTimeDonated;
     }
 
+    public boolean isCanDonate() {
+        return canDonate;
+    }
+
+    public void setCanDonate(boolean canDonate) {
+        this.canDonate = canDonate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return email.equals(user.email);
+        Donor donor = (Donor) o;
+        return email.equals(donor.email);
     }
 
     @Override
@@ -165,7 +189,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Donor{" +
                 "Email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

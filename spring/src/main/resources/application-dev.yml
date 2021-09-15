@@ -1,0 +1,10 @@
+logging:
+  level:
+    com.blood.donation.app: DEBUG
+#    com.blood.donation.app.controller:
+#      UserController: DEBUG
+#      UserControllerAdvice: DEBUG
+#    com.blood.donation.app.service:
+#      DonorService: DEBUG
+#    com.blood.donation.app.utils:
+#      InitializationLogs: DEBUG

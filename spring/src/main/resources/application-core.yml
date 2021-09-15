@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    #create a database named BloodDonationDatabase
+    url: jdbc:postgresql://localhost:${PORT}/BloodDonationDatabase #change to your port
+    username: ${USERNAME} #change to your username
+    password: ${PASSWORD} #change to your password
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
